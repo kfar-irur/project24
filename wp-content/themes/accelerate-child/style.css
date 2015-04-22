@@ -1,0 +1,73 @@
+/*
+ Theme Name:   Accelerate Child
+ Description:  Accelerate Child
+ Template:     accelerate
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Text Domain:  accelerate
+*/
+
+.brightBlueButton{
+	margin: 3px ;
+	padding: 0px 15px;
+	background-color:#1FB3ED;
+}
+
+#approveButton{
+	margin: 3px ;
+	padding: 0px 15px;
+	background-color:#1FB3ED;
+}
+
+#denyButton{
+	margin: 3px ;
+	padding: 0px 15px;
+	background-color:#1FB3ED;
+}
+
+#backButton{
+	margin: 3px ;
+	padding: 0px 15px;
+	background-color:#1FB3ED;
+}
+
+a {
+font-family: alef;
+}
+
+#submitHours{
+	position:relative; 
+	right:50%;
+	margin-top:10px; 
+	margin-bottom: 0px;
+}
+
+#page {
+	background-color: #FAF8E3;
+}
+
+
+#header-text-nav-wrap {
+	padding: 0px 0 5px 30px;
+}
+
+td {
+  padding: 0px;
+  margin: 4px 0px;
+}
+
+p {
+  padding: 0px;
+  margin: 4px 0px;
+}
+
+h2 {
+  padding: 0px;
+  margin: 7px 0px;
+  
+}
+
+.avatar{
+margin: 5px 0px;
+}
