@@ -8,6 +8,8 @@ $areasRes = p24_getAllAreas();
 
 ?>
 <html>
+<div id="page_top"></div>
+
 <table style="border-style: hidden"><tr>
 <td align="center" style=" border-style: hidden height: 20px; width:7%">100%</td>
 <?php 
@@ -19,23 +21,27 @@ foreach(array_reverse($colors) as $color){?>
 </tr></table>
 
 
-<h1 align="center" style="font-weight: bold;">ההרשמה נפתחה!</h1>
-<h1 style="display: inline-block" class="entry-title">
+<h1 align="center" style="font-weight: bold;">24.4 - ההרשמה נפתחה!</h1>
+
+<?php do_action( 'wordpress_social_login' ); ?> 
+
+<h4 style="display: inline-block" class="entry-title">
 <span>עד כה גוייסו </span>
 <span style="font-weight: bold;  color: black;
 	background-color:<?=p24_getColor(p24_getMapPercent())?>"> <?=p24_getMapPercent()?>%  </span> 
 <span> מהשעות הדרושות לניקוי כל רצועת החוף.</span>
 <br/>
-<span>אז איפה אתה בכל הסיפור הזה?</span>
+<span>אז איפה נראה אותך ב 15.5?</span>
 <br/>
-<p>בטבלה הבאה חלוקה לאיזורים ואחוזי השעות שגוייסו עד כה לכל אזור, פשוט חפש את החוף שלך ל 15.5 ותצטרף למסיבה :)</p>
-</h1> 
+</h4> 
+<p>בטבלה הבאה חלוקה לאיזורים ואחוזי השעות שגוייסו עד כה לכל אזור, אז איפה האזור שלך? :)</p>
+
 <table border=1 >
 	<thead>
 		<tr> 
-			<td style="vertical-align:middle; width: 33%"><h2 class="comments-title">איפה בארץ?</h2></td>
-			<td style="vertical-align:middle; width: 33%"><h2 class="comments-title">כמה כבר סגרנו?</h2></td>
-			<td style="vertical-align:middle; width: 33%"><h2 class="comments-title">למה אני עוד לא רשום?</h2></td>
+			<td style="vertical-align:middle; width: 33%"><h6 style="font-weight: bold;">איפה בארץ?</h6></td>
+			<td style="vertical-align:middle; width: 33%"><h6 style="font-weight: bold;">כמה כבר סגרנו?</h6></td>
+			<td style="vertical-align:middle; width: 33%"><h6 style="font-weight: bold;">למה אני עוד לא רשום?</h6></td>
 		</tr>
 	</thead>
 	<tbody>
@@ -66,6 +72,7 @@ function load_map(){
 		data: {action: "p24_loadMap_ajax"},
 		success: function(output){
 			jQuery('.entry-content').html(output);
+			window.scrollTo(0, document.getElementById('page_top').offsetTop);
 		}
 	});
 }
@@ -83,6 +90,7 @@ history.pushState({area_id:area_id}, "אזור:"+ area_id, "?aid="+area_id);
 		data: {action: "p24_loadArea_ajax", area_id:area_id},
 		success: function(output){
 			jQuery('.entry-content').html(output);
+			window.scrollTo(0, document.getElementById('page_top').offsetTop);
 		}
 	});
 }

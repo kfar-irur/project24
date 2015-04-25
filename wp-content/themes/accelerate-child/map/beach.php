@@ -39,6 +39,7 @@ foreach(array_reverse($colors) as $color){?>
 
 <p style="display: inline-block;"><span>אם אתה נכנס ב </span>
 	<select id="hoursSelect" onChange="updateHours(this, <?=$beach_id?>, <?=$area_id?>)">
+			<option value="0">בחר</option>
 			<?php for($i=1;$i<25;$i++){?>
 				<option value="<?=$i?>"><?=$i?></option>
 			<?php } ?></select>
@@ -94,10 +95,10 @@ foreach(array_reverse($colors) as $color){?>
 				for(;$i<2 ; $i++){?>
 					<td align="center" style="width: 33%"><img style="float:center;" src=<?=$picUrl?> class="avatar" 
 						height="70" width="70"><br>
-						<?php if(!p24_UserIsSuperviser(p24_getCurrentUserId())){ ?>
+						<?php if(!p24_UserIsSuperviser(p24_getCurrentUserId()) && is_user_logged_in()){ ?>
 							<button class="brightBlueButton"  onclick='loadListingPage(<?=$beach_id?>, 2 )'>
-								<p style="font-weight: bold;">אחראי?</p></button>
-						<?php } else {?>
+								<p style="font-weight: bold;">אחראי? הרשם!</p></button>
+						<?php } else if(is_user_logged_in()) {?>
 							<button class="brightBlueButton"  onclick='inviteFriendToBeach( <?=$beach_id?>, 2 )'>
 								<p style="font-weight: bold;">הזמן חבר! (בקרוב)</p></button>
 						<?php } ?>		
@@ -136,10 +137,10 @@ foreach(array_reverse($colors) as $color){?>
 			for(;$i%3 != 0 ; $i++){?>
 				<td align="center" style="width: 33%"><img style="float:center;" src=<?=$picUrl?> class="avatar" 
 					height="70" width="70"><br>
-					<?php if($isListed == false){ ?>
+					<?php if(is_user_logged_in() && $isListed == false ){ ?>
 						<button class="brightBlueButton" onclick='loadListingPage(<?=$beach_id?>, 1 )'>
 							<p style="font-weight: bold;">הנה אני בא...</p></button>
-					<?php } else {?>
+					<?php } else if(is_user_logged_in()){?>
 						<button class="brightBlueButton" onclick='inviteFriendToBeach(<?=$beach_id?>, 1 )'>
 							<p style="font-weight: bold;">הזמן חבר! (בקרוב)</p></button>
 					<?php } ?>		
@@ -167,6 +168,7 @@ function load_beach(beach_id){
 			window.scrollTo(0, document.getElementById('page_top').offsetTop);
 			window.onpopstate = function(event) {
   				load_area(<?=$area_id?>);
+  				
 			}
 		}
 	});
@@ -176,6 +178,11 @@ function loadListingPage(beach_id, job_id){
 	var hours = 0;
 	if(job_id == 1){
 		hours = jQuery('#hoursSelect').val();
+		if(hours == 0){
+      	window.scrollTo(0, document.getElementById('page_top').offsetTop);
+      	alert("\n\"בחר\" זה לא מספר... \n\n כדי שנוכל לחשב אחוזים רצוי שנדע מה כמות השעות שנראה אותך בחוף ;)");
+      	return;
+      }
 	}
 	//alert("loadListingPage "+ beach_id);
 	window.onpopstate = function(event) {

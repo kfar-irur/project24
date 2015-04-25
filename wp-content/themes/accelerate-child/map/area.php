@@ -11,6 +11,8 @@ $area_name = p24_getAreaName($area_id);
 
 <html>
 
+<div id="page_top"></div>
+
 <table style="border-style: hidden"><tr>
 <td align="center" style=" border-style: hidden height: 20px; width:7%">100%</td>
 <?php 
@@ -25,12 +27,20 @@ foreach(array_reverse($colors) as $color){?>
 	<span style="display: inline-block; color: black;
 		background-color:<?=p24_getColor(p24_getAreaPercent($area_id))?>">  <?=p24_getAreaPercent($area_id)?>%  </span></h1>
 	
+	<?php do_action( 'wordpress_social_login' ); ?> 
+	
+	<h6 style="display: inline-block;">
+		<span>חשוב לציין! כל החופים שבטבלה</span>
+		<span style="font-weight: bold;">אינם מוכרזים</span>
+		<span>. בחלק מהחופים הרשומים כאן יש גם רצועה קטנה מוכרזת עם אותו שם. אותה אין צורך לנקות מן הסתם אבל את כל שאר החוף כן :)</span>
+	</h6>
+	
 	<table border=1>
 		<thead>
 			<tr>
-				<td style="vertical-align:middle; width: 33%"><h2 class="comments-title">איזה חוף?</h2</td>
-				<td style="vertical-align:middle; width: 33%"><h2 class="comments-title">כמה כבר סגרנו?</h2</td>
-				<td style="vertical-align:middle; width: 33%"><h2 class="comments-title">למה אני עדיין לא רשום??</h2</td>
+				<td style="vertical-align:middle; width: 33%"><h6 style="font-weight: bold;">איזה חוף?</h6></td>
+				<td style="vertical-align:middle; width: 33%"><h6 style="font-weight: bold;">כמה כבר סגרנו?</h6></td>
+				<td style="vertical-align:middle; width: 33%"><h6 style="font-weight: bold;">למה אני עדיין לא רשום??</h6></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -46,11 +56,7 @@ foreach(array_reverse($colors) as $color){?>
 			<?php } ?>	
 		</tbody>
 	</table>
-	<p style="display: inline-block;">
-		<span>חשוב לציין! כל החופים שבטבלה</span>
-		<span style="font-weight: bold;"> אינם מוכרזים</span>
-		<span>. בחלק מהחופים הרשומים כאן יש גם רצועה קטנה מוכרזת עם אותו שם. אותה אין צורך לנקות מן הסתם אבל את כל שאר החוף כן :)</span>
-	</p>
+
 </html>
 
 <script>
@@ -67,6 +73,7 @@ function load_area(area_id){
 			window.onpopstate = function(event) {
       			load_map();
     		}
+    		window.scrollTo(0, document.getElementById('page_top').offsetTop);
 		}
 	});
 }
@@ -85,6 +92,7 @@ history.pushState({beach_id:beach_id}, "אזור:"+ beach_id, "?bid="+beach_id);
 		data: {action: "p24_loadBeach_ajax", beach_id:beach_id},
 		success: function(output){
 			jQuery('.entry-content').html(output);
+			window.scrollTo(0, document.getElementById('page_top').offsetTop);
 		}
 	});
 }

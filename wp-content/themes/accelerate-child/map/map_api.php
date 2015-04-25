@@ -315,7 +315,7 @@ function p24_addListing_ajax(){
 	error_log("inside p24_addListing_ajax with" .print_r($_POST,1));
 	p24_setUserPhoneEmail($phone, $email);	
 	p24_addListing(p24_getCurrentUserId(), $beach_id, $job_id, $hours, $push_join, $push_closed);
-
+	p24_memberJoinEmail("kfar.irur@gmail.com",p24_getUserName(p24_getCurrentUserId()));
 	die();
 }
 add_action("wp_ajax_p24_addListing_ajax", "p24_addListing_ajax");

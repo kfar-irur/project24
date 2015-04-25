@@ -12,6 +12,7 @@ function theme_enqueue_styles() {
 }
 
 include('map/map_api.php');
+include('email.php');
 
 function p24_getMapShortCode($atts, $content){
 	ob_start();
