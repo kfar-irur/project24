@@ -5,7 +5,7 @@ function p24_memberJoinEmail($to, $memberName){
 	
 $subject = "פרויקט 24, ";
 
-$message = "שלום ";
+$message = "ש יעלחעלחעלחלום ";
 
 $headers = "From: Kfar.Irur@gmail.com";
 
