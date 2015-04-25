@@ -22,7 +22,16 @@ function p24_getMapShortCode($atts, $content){
 }
 add_shortcode('get_map', 'p24_getMapShortCode');
 
-function p24_loadMap_ajax($atts, $content){
+function p24_getMessagesShortCode($atts, $content){
+	ob_start();
+	include('map/messages.php');
+	$output_string = ob_get_contents();
+	ob_end_clean();
+	return $output_string;
+}
+add_shortcode('get_messages', 'p24_getMessagesShortCode');
+
+function p24_loadMap_ajax(){
 	ob_start();
 	include('map/all_areas.php');
 	$output_string = ob_get_contents();

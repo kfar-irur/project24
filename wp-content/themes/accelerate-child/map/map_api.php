@@ -48,6 +48,21 @@ function p24_disconnect() {
     }
 }
 
+ function p24_getUserProfile($user_id = null)
+{
+	if(!$user_id || $user_id == 0){
+		//error_log("inside if");
+		$user_id = get_current_user_id();
+	}
+
+	$q = "SELECT profileurl FROM wp_wslusersprofiles WHERE user_id = '$user_id'";
+
+    $result = mysql_query($q) or die('Query failed: ' . mysql_error());
+	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+     
+    return $row["profileurl"];
+}
+
  function p24_getUserName($user_id = null)
 {
 	if(!$user_id || $user_id == 0){
@@ -66,6 +81,50 @@ function p24_disconnect() {
         return "ללא שם";
     }
 }
+
+ function p24_getUserPhone($user_id = null)
+{
+	if(!$user_id || $user_id == 0){
+		//error_log("inside if");
+		$user_id = get_current_user_id();
+	}
+
+	$q = "SELECT phone FROM wp_wslusersprofiles WHERE user_id = '$user_id'";
+
+    $result = mysql_query($q) or die('Query failed: ' . mysql_error());
+	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+
+    return $row["phone"];
+}
+
+function p24_setUserPhoneEmail($phone, $email, $user_id = null)
+{
+	if(!$user_id || $user_id == 0){
+		//error_log("inside if");
+		$user_id = get_current_user_id();
+	}
+
+	$q = "UPDATE wp_wslusersprofiles SET phone = '$phone' , email_manual = '$email'  WHERE user_id = '$user_id'";
+
+    mysql_query($q) or die('Query failed: ' . mysql_error());
+}
+
+ function p24_getUserMail($user_id = null)
+{
+	if(!$user_id || $user_id == 0){
+		//error_log("inside if");
+		$user_id = get_current_user_id();
+	}
+
+	$q = "SELECT email, email_manual FROM wp_wslusersprofiles WHERE user_id = '$user_id'";
+
+    $result = mysql_query($q) or die('Query failed: ' . mysql_error());
+	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+	
+	if(strpos($row["email_manual"], '@')) return $row["email_manual"];
+    return $row["email"];
+}
+
 
 
 /*
@@ -236,22 +295,27 @@ function p24_getAllAreas()
 /*
  * Listing functions
  */
- 
-function p24_addListing($user_id, $beach_id, $job_id, $hours)
+function p24_addListing($user_id, $beach_id, $job_id, $hours, $push_join, $push_closed)
 {
-	$q = "INSERT INTO m_listings (user_id,beach_id, job_id, hours)
-			VALUES ('$user_id', '$beach_id', '$job_id', '$hours')";
-    $result = mysql_query($q) or die(error_log('Query addListing failed: ' . mysql_error()));
+	$q = "INSERT INTO m_listings (user_id, beach_id, job_id, hours, push_join, push_closed) 
+			VALUES ('$user_id', '$beach_id', '$job_id', '$hours', '$push_join', '$push_closed')";
+	mysql_query($q) or die('Query editListing failed: ' . mysql_error());
 	return true;
 }
 function p24_addListing_ajax(){
 	$beach_id = $_POST['beach_id'];
 	$job_id = $_POST['job_id'];
 	$hours = $_POST['hours'];
+	$phone = $_POST['phone'];
+	$email = $_POST['email'];
+	$push_join = $_POST['push_join'];
+	$push_join == "true" ? $push_join = TRUE : $push_join = FALSE;
+	$push_closed = $_POST['push_closed'];
+	$push_closed == "true" ? $push_closed = TRUE : $push_closed = FALSE;
 	error_log("inside p24_addListing_ajax with" .print_r($_POST,1));
-	if(p24_addListing(p24_getCurrentUserId(), $beach_id, $job_id, $hours)){
-		echo "OK";	
-		}
+	p24_setUserPhoneEmail($phone, $email);	
+	p24_addListing(p24_getCurrentUserId(), $beach_id, $job_id, $hours, $push_join, $push_closed);
+
 	die();
 }
 add_action("wp_ajax_p24_addListing_ajax", "p24_addListing_ajax");
@@ -308,38 +372,100 @@ function p24_UserListedHours($user_id, $beach_id){
 		return 0;
 	}	
 }
+
+function p24_UserIsSuperviser($user_id){
+
+    $q = "SELECT * FROM m_listings WHERE job_id = 2 and user_id = '$user_id'" ;
+	$result = mysql_query($q) or die('Query isUserListed failed: ' . mysql_error());
+	
+    if($row = mysql_fetch_array($result,MYSQL_ASSOC)){
+		return true;
+	} else {
+		return false;
+	}	
+}
 	
 	
 function p24_getColor($percent){
 	$colors = array(
 	        'ff0000',
+	        'ff1100',
+	        'ff2200',
 	        'ff3300',
+	        'ff4400',
+	        'ff5500',
 	        'ff6600',
 	        'ff9900',
+	        'ffaa00',
+	        'ffbb00',
 	        'ffcc00',
+	        'ffdd00',
+	        'ffee00',
 	        'ffff00',
+	        'eeff00',
+	        'ddff00',
 	        'ccff00',
+	        'bbff00',
+	        'aaff00',
 	        '99ff00',
+	        '88ff00',
+	        '77ff00',
 	        '66ff00',
+	        '55ff00',
+	        '44ff00',
 	        '33ff00',
+	        '22ff00',
+	        '11ff00',
 	        '00ff00',
+	        '00ff11',
+	        '00ff22',
 	        '00ff33',
+	        '00ff44',
+	        '00ff55',
 	        '00ff66',
+	        '00ff77',
+	        '00ff88',
 	        '00ff99',
+	        '00ffaa',
+	        '00ffbb',
 	        '00ffcc',
+	        '00ffdd',
+	        '00ffee',
 	        '00ffff',
+	        '00eeff',
+	        '00ddff',
 	        '00ccff',
+	        '00bbff',
+	        '00aaff',
 	        '0099ff',
+	        '0088ff',
+	        '0077ff',
 	        '0066ff',
+	        '0055ff',
+	        '0044ff',
 	        '0033ff',
+	        '0022ff',
+	        '0011ff',
 	        '0000ff',
+	        '1100ff',
+	        '2200ff',
 	        '3300ff',
+	        '4400ff',
+	        '5500ff',
 	        '6600ff',
+	        '7700ff',
+	        '8800ff',
 	        '9900ff',
+	        'aa00ff',
+	        'bb00ff',
 	        'cc00ff',
+	        'dd00ff',
+	        'ee00ff',
 			'ff00ff',
+			'ff00ee',
+			'ff00dd',
 			'ff00cc');
-			
+	if($percent == "-1") {return $colors;}
 	$numColors = count($colors);
 	$res = ($percent)/(100/$numColors);
 	$res = intval($res);
@@ -347,6 +473,14 @@ function p24_getColor($percent){
 		//error_log("newbackColor1 = ". $res);
 	
 	return "#".$res;	
+}
+
+function p24_getMessages(){
+    $q = "SELECT * FROM m_messages ORDER BY id" ;
+
+    $result = mysql_query($q) or die('Query failed: ' . mysql_error());
+    
+	return $result;
 }
 
 ?>

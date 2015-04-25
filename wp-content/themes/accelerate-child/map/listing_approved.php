@@ -4,51 +4,66 @@ p24_connect();
 // check if user logged in and valid user
 
 $beach_id = $_POST['beach_id'];
-$hours = $_POST['hours'];
 $job_id = $_POST['job_id'];
-$beachCleaners = p24_getBeachWorkers($beach_id, 1);
-$beachSupervisers = p24_getBeachWorkers($beach_id, 2);
 $beach_name = p24_getBeachName($beach_id);
 
 ?>
 
-
 <html>
+<br /><br />
+<?php if($job_id == 1){ ?>
+	<h1 class="entry-title" style="font-weight: bold;"><span>משנה מציאות יקר (: </span></h1>
+	<p style="display: inline-block;">
+		<span>ברוך הבא לקהילת <?=$beach_name?>.</span>
+		<span>אתה כבר פה, לא תגיד שלום? <br />
+			חזור לדף החוף וספר בתגובות ש<?=p24_getUserName(p24_getCurrentUserId())?>
+			 הצטרף למסיבה.
+		</span>
 
+		<br />
+		<br />
+		<span>ספר לפייסבוק על התרומה שלך לפרויקט. שכולם ידעו שבלעדיך זה לא היה קורה</span><br />
+		<table style="border-style: hidden">
+			<tr>
+				<td style="border-style: hidden">
+					<button class="brightBlueButton" onclick='inviteFriendToBeach(<?=$beach_id?>, 3 )'>
+						<p style="font-weight: bold;">שתף! (בקרוב)</p></button>
+				</td>
+			</tr>
+		</table>
+	</p>
+	
+<?php } else if($job_id == 2) { ?>
+	<h1 class="entry-title" style="font-weight: bold;"><span>אחראי חוף יקר :)</span></h1>
+	<p style="display: inline-block;">
+		<span>בוא תכיר קצת את האנשים שינקו איתך <br />
+			חזור לדף החוף וספר בתגובות שיש אחראי חוף חדש.
+		</span>
+		<br />
+		<br />
+		<span>ספר לחבריך בפייסבוק על החוף שבאחריותך שגם הם יבואו לחוף שלך לעזור </span>
+		<table style="border-style: hidden">
+			<tr>
+				<td style="border-style: hidden">
+					<button class="brightBlueButton" onclick='inviteFriendToBeach(<?=$beach_id?>, 3 )'>
+						<p style="font-weight: bold;">שתף! (בקרוב)</p></button>
+				</td>
+			</tr>
+		</table>
+		<br />
+		<br />
+		<span>שמור את המספר ודבר איתנו על כל דבר שעולה לך לראש :)<br />
+		נאור לוי - 0508815055 <br />
+		שי קניגסברג - 0503222880
+		</span>
+	</p>
+<?php } ?>
 
-<h1 class="entry-title" style="font-weight: bold;">נרשמת בהצלחה</h1>
-
-<br/>
-<br/>
-
-<table border=1 style="table-layout: fixed;">
-	<tbody>
-		<tr>
-			<h2><span> bla bla </span></h2>
-		</tr>
-		<tr> 
-			<?php 
-			$i=0;
-			while(($user = mysql_fetch_array($beachCleaners)) && $i<16){
-				$i++;	
-				//error_log("cleaner ".$i." id:".$user['user_id']); 
-				$picUrl = p24_getUserPic($user['user_id']);?>
-				<td align="center" style=" width: 12.5%"><img style="float:center;" src=<?=$picUrl?> class="avatar" 
-							height="35" width="35"><!--<br><?=p24_getUserName($user['user_id'])?>--></td>
-				<?if($i%8 == 0) {?>
-					</tr>
-					<tr>
-				<?php } ?>	
-			<?php } ?>
-		</tr>
-	</tbody>
-</table>
-
-
-
-<table>
+<p style="font-weight: bold">נתראה ב 15.5.15 ועד אז תפיץ בן-אדם, תפיץ ;)</p>
+<br /><br />
+<table style="border-style: hidden">
 	<tr>
-		<td>
+		<td style="border-style: hidden">
 			<button id="backButton" onclick='load_beach(<?=$beach_id?>)'>
 				<p style="font-weight: bold;">חזרה לחוף!</p></button>
 		</td>
