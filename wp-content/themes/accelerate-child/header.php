@@ -15,7 +15,7 @@
 <meta property="og:title" content="פרויקט 24 - ביחד משנים מציאות" />
 <meta property="og:description" content="והפעם מבצע ניקוי חופים ארצי ראשון מסוגו בישראל! כנסו  לאתר, הרשמו לחוף הקרוב לליבכם, תראו  איפה חברים שלכם רשומים ותגידו שלום לחבר'ה :) " />
 <meta property="og:image" content="http://project24.co.il/wp-content/uploads/2015/04/thombFBnew.jpg"/>
-<meta property="og:url" content="http://project24.co.il/"/>11
+<meta property="og:url" content="http://project24.co.il/"/>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11" />
