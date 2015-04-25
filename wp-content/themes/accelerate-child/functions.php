@@ -12,7 +12,15 @@ function theme_enqueue_styles() {
 }
 
 include('map/map_api.php');
-include('email.php');
+
+function p24_test_mail_ShortCode($atts, $content){
+	ob_start();
+	include('email.php');
+	$output_string = ob_get_contents();
+	ob_end_clean();
+	return $output_string;
+}
+add_shortcode('test_mail', 'test_mail_ShortCode');
 
 function p24_getMapShortCode($atts, $content){
 	ob_start();
