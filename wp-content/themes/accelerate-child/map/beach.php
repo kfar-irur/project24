@@ -1,22 +1,15 @@
-
+<div id="page_top"></div>
 <?php
 p24_connect();
 // check if user logged in and valid user
 
 $beach_id = $_POST['beach_id'];
 $area_id = p24_getBeachAreaId($beach_id);
-//error_log("LoadBeach - id:".$beach_id."ccc");
+//error_log("    LoadBeach - id:".$beach_id."    ");
 $beachCleaners = p24_getBeachWorkers($beach_id, 1);
 $beachSupervisers = p24_getBeachWorkers($beach_id, 2);
 $isListed = p24_UserListedHours(p24_getCurrentUserId(), $beach_id) > 0;
 ?>
-
-<!--
-<link rel="stylesheet" href="/wp-content/themes/accelerate-child/loader/css/introLoader.min.css"> 
-<script src="/wp-content/themes/accelerate-child/loader/jquery.introLoader.pack.min.js"></script> 
-<div id="element" class="introLoading"></div>
--->
-<div id="page_top"></div>
 
 <table style="border-style: hidden"><tr>
 <td align="center" style=" border-style: hidden height: 20px; width:7%">100%</td>
@@ -28,9 +21,10 @@ foreach(array_reverse($colors) as $color){?>
 <td align="center" style=" border-style: hidden height: 20px; width:3%">0%</td>
 </tr></table>
 
-<h1 class="entry-title" style="font-weight: bold;"><span><?=p24_getBeachName($beach_id)?></span>
-<span style="color: black; background-color:<?=p24_getColor(p24_getBeachPercent($beach_id))?>"> <?=p24_getBeachPercent($beach_id)?>%</span> </h1>
-
+<h1 class="entry-title" style="font-weight: bold; display: inline-block;"><span><?=p24_getBeachName($beach_id)?></span>
+<span style="color: black; background-color:<?=p24_getColor(p24_getBeachPercent($beach_id))?>"> <?=p24_getBeachPercent($beach_id)?>%</span>
+<h5 style="display: inline-block; padding-right: 5px">( <?=p24_getBeachLength($beach_id)?> ק"מ <?=p24_getBeachDescription($beach_id)?>)</h5></h1>
+<br />
 
 <?php if(p24_getCurrentUserId() == 0){ ?> 
 <?php do_action( 'wordpress_social_login' ); ?> 
@@ -53,7 +47,10 @@ foreach(array_reverse($colors) as $color){?>
 <span> וכל זה בזכותך!</span>
 </p>
 <br/>
+<p style="display: inline-block;">
 <button class="brightBlueButton" id="submitListing" onclick="loadListingPage( <?=$beach_id?>, 1 )"><p style="font-weight: bold;">הנה אני בא...</p></button>
+<span>(ניתן לשנות את הרישום בקלות בכל עת)</span>
+</p>
 
 <?php } else { ?>
 <p style="display: inline-block;"> אתה רשום לחוף זה</p>
@@ -150,30 +147,11 @@ foreach(array_reverse($colors) as $color){?>
 	</tbody>
 </table>
 
+
+
 <script>
 <?php $ajax_url = admin_url( 'admin-ajax.php' ); ?>
 
-//jQuery(document).ready(function() { 
-//	jQuery("#element").introLoader(); 
-//});
-
-function load_beach(beach_id){
-	jQuery.ajax({
-		type: "POST", 
-		dataType: "html",
-		url: "<?php echo $ajax_url;?>",
-		data: {action: "p24_loadBeach_ajax", beach_id:beach_id},
-		success: function(output){
-		    jQuery('.entry-content').html(output);
-			window.scrollTo(0, document.getElementById('page_top').offsetTop);
-			window.onpopstate = function(event) {
-  				load_area(<?=$area_id?>);
-  				
-			}
-		}
-	});
-}
-	
 function loadListingPage(beach_id, job_id){
 	var hours = 0;
 	if(job_id == 1){
@@ -185,10 +163,8 @@ function loadListingPage(beach_id, job_id){
       }
 	}
 	//alert("loadListingPage "+ beach_id);
-	window.onpopstate = function(event) {
-      load_beach(beach_id);
-    }
-	//history.pushState({beach_id:beach_id}, "אזור:"+ beach_id, "?bid="+beach_id);  
+
+	history.pushState({beach_id:beach_id}, "אזור:"+ beach_id, "?lbid="+beach_id);  
 	jQuery.ajax({
 		type: "POST",
 		dataType: "html",
@@ -196,6 +172,9 @@ function loadListingPage(beach_id, job_id){
 		data: {action: "p24_loadListingPage_ajax", beach_id:beach_id, job_id:job_id, hours:hours},
 		success: function(output){
 			jQuery('.entry-content').html(output);
+			window.onpopstate = function(event) {
+  				load_beach(beach_id, 1);
+			}
 			window.scrollTo(0, document.getElementById('page_top').offsetTop);
 		}
 	});
@@ -208,7 +187,7 @@ function deleteListing(beach_id, job_id){
 		url: "<?php echo $ajax_url;?>",
 		data: {action: "p24_delListing_ajax", beach_id:beach_id, job_id:job_id},
 		success: function(output){
-			load_beach(beach_id);
+			load_beach(beach_id,1);
 		}
 	});
 }
@@ -223,7 +202,7 @@ function changeListing(beach_id, job_id){
 		url: "<?php echo $ajax_url;?>",
 		data: {action: "p24_editListing_ajax", beach_id:beach_id, job_id:job_id, hours:hours},
 		success: function(output){
-			load_beach(beach_id);
+			load_beach(beach_id,1);
 		}
 	});
 }

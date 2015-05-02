@@ -1,9 +1,9 @@
 <?php 
 
-//require_once("../wp-load.php");
+include('colors.php');
 
 /*
- * Cons & des 
+ * Connection managment
  */
 function p24_connect() {
 	$myconn = mysql_connect("localhost","root","zzuullaa") or die("Unable to connect to MySQL");
@@ -154,7 +154,7 @@ function p24_setUserPhoneEmail($phone, $email, $user_id = null)
 	$result = mysql_query($q2) or die('Query failed: ' . mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $sum_needed = $row["sum_needed"]; 
-	if(added != null){
+	if($added != null){
 		$sum_given = $sum_given+ $added;
 	}	
 	return sprintf("%.2f",$sum_given / $sum_needed * 100);
@@ -215,7 +215,7 @@ function p24_getAllAreas()
 	$result = mysql_query($q2) or die('Query failed: ' . mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $sum_needed = $row["sum_needed"]; 
-	if(added != null){
+	if($added != null){
 		$sum_given = $sum_given+ $added;
 	}	
 	return sprintf("%.2f",$sum_given / $sum_needed * 100);
@@ -253,6 +253,24 @@ function p24_getAllAreas()
     return $row["area_id"];       
 }
 
+ function p24_getBeachDescription($beach_id)
+{
+	$q = "SELECT description FROM m_beaches WHERE id = '$beach_id'";
+    $result = mysql_query($q) or die('Query failed: ' . mysql_error());
+	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+	
+    return $row["description"];       
+}
+
+ function p24_getBeachLength($beach_id)
+{
+	$q = "SELECT length FROM m_beaches WHERE id = '$beach_id'";
+    $result = mysql_query($q) or die('Query failed: ' . mysql_error());
+	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+	
+    return $row["length"];       
+}
+
  function p24_getBeachNeeded($beach_id)
 {
 	$q = "SELECT needed FROM m_beaches WHERE id = '$beach_id'";
@@ -275,7 +293,7 @@ function p24_getAllAreas()
 	$result = mysql_query($q2) or die('Query failed: ' . mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $sum_needed = $row["sum_needed"]; 
-	if(added != null){
+	if($added != null){
 		$sum_given = $sum_given+ $added;
 	}	
 	return sprintf("%.2f",$sum_given / $sum_needed * 100);		
@@ -297,11 +315,15 @@ function p24_getAllAreas()
  */
 function p24_addListing($user_id, $beach_id, $job_id, $hours, $push_join, $push_closed)
 {
-	$q = "INSERT INTO m_listings (user_id, beach_id, job_id, hours, push_join, push_closed) 
-			VALUES ('$user_id', '$beach_id', '$job_id', '$hours', '$push_join', '$push_closed')";
+	if(p24_UserListedHours($user_id, $beach_id) >  0) return;
+	
+	$user_name = p24_getUserName($user_id);
+	$q = "INSERT INTO m_listings (user_id, user_name, beach_id, job_id, hours, push_join, push_closed) 
+			VALUES ('$user_id', '$user_name', '$beach_id', '$job_id', '$hours', '$push_join', '$push_closed')";
 	mysql_query($q) or die('Query editListing failed: ' . mysql_error());
 	return true;
 }
+
 function p24_addListing_ajax(){
 	$beach_id = $_POST['beach_id'];
 	$job_id = $_POST['job_id'];
@@ -312,10 +334,10 @@ function p24_addListing_ajax(){
 	$push_join == "true" ? $push_join = TRUE : $push_join = FALSE;
 	$push_closed = $_POST['push_closed'];
 	$push_closed == "true" ? $push_closed = TRUE : $push_closed = FALSE;
-	error_log("inside p24_addListing_ajax with" .print_r($_POST,1));
+	//error_log("inside p24_addListing_ajax with" .print_r($_POST,1));
 	p24_setUserPhoneEmail($phone, $email);	
 	p24_addListing(p24_getCurrentUserId(), $beach_id, $job_id, $hours, $push_join, $push_closed);
-	p24_memberJoinEmail("kfar.irur@gmail.com",p24_getUserName(p24_getCurrentUserId()));
+	//p24_memberJoinEmail("kfar.irur@gmail.com",p24_getUserName(p24_getCurrentUserId()));
 	die();
 }
 add_action("wp_ajax_p24_addListing_ajax", "p24_addListing_ajax");
@@ -373,6 +395,7 @@ function p24_UserListedHours($user_id, $beach_id){
 	}	
 }
 
+
 function p24_UserIsSuperviser($user_id){
 
     $q = "SELECT * FROM m_listings WHERE job_id = 2 and user_id = '$user_id'" ;
@@ -385,103 +408,24 @@ function p24_UserIsSuperviser($user_id){
 	}	
 }
 	
-	
-function p24_getColor($percent){
-	$colors = array(
-	        'ff0000',
-	        'ff1100',
-	        'ff2200',
-	        'ff3300',
-	        'ff4400',
-	        'ff5500',
-	        'ff6600',
-	        'ff9900',
-	        'ffaa00',
-	        'ffbb00',
-	        'ffcc00',
-	        'ffdd00',
-	        'ffee00',
-	        'ffff00',
-	        'eeff00',
-	        'ddff00',
-	        'ccff00',
-	        'bbff00',
-	        'aaff00',
-	        '99ff00',
-	        '88ff00',
-	        '77ff00',
-	        '66ff00',
-	        '55ff00',
-	        '44ff00',
-	        '33ff00',
-	        '22ff00',
-	        '11ff00',
-	        '00ff00',
-	        '00ff11',
-	        '00ff22',
-	        '00ff33',
-	        '00ff44',
-	        '00ff55',
-	        '00ff66',
-	        '00ff77',
-	        '00ff88',
-	        '00ff99',
-	        '00ffaa',
-	        '00ffbb',
-	        '00ffcc',
-	        '00ffdd',
-	        '00ffee',
-	        '00ffff',
-	        '00eeff',
-	        '00ddff',
-	        '00ccff',
-	        '00bbff',
-	        '00aaff',
-	        '0099ff',
-	        '0088ff',
-	        '0077ff',
-	        '0066ff',
-	        '0055ff',
-	        '0044ff',
-	        '0033ff',
-	        '0022ff',
-	        '0011ff',
-	        '0000ff',
-	        '1100ff',
-	        '2200ff',
-	        '3300ff',
-	        '4400ff',
-	        '5500ff',
-	        '6600ff',
-	        '7700ff',
-	        '8800ff',
-	        '9900ff',
-	        'aa00ff',
-	        'bb00ff',
-	        'cc00ff',
-	        'dd00ff',
-	        'ee00ff',
-			'ff00ff',
-			'ff00ee',
-			'ff00dd',
-			'ff00cc');
-	if($percent == "-1") {return $colors;}
-	$numColors = count($colors);
-	$res = ($percent)/(100/$numColors);
-	$res = intval($res);
-	$res = $colors[$res];
-		//error_log("newbackColor1 = ". $res);
-	
-	return "#".$res;	
-}
+function p24_getNumListedUsers($area_id = null, $beach_id = null){
 
-function p24_getMessages(){
-    $q = "SELECT * FROM m_messages ORDER BY id" ;
-
+	$q = "SELECT COUNT(DISTINCT user_id) AS num_users FROM m_listings";
     $result = mysql_query($q) or die('Query failed: ' . mysql_error());
-    
-	return $result;
+	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+	return $row['num_users'];
 }
+	
+function p24_getSumHoursListed($area_id = null, $beach_id = null){
+
+	$q = "SELECT SUM(hours) AS sum_hours FROM m_listings";
+    $result = mysql_query($q) or die('Query failed: ' . mysql_error());
+	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+	return $row['sum_hours'];
+}	
+
+
+
 
 ?>
 

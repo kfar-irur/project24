@@ -94,7 +94,11 @@ while(($user = mysql_fetch_array($beachCleaners)) && $i<16){
 		</p>
 	</form>
 	<br />
-	<p  style="font-weight: bold;">אז מה אתה אומר?</p>
+	<p style="display: inline-block;">
+	<span style="font-weight: bold;">אז מה אתה אומר?</span>
+	<span>(ניתן לשנות את הרישום בקלות בכל עת)</span>
+	</p>
+	
 	<br />
 	<table style="border-style: hidden">
 		<tr>

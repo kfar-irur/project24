@@ -1,18 +1,20 @@
+<div id="page_top"></div>
+
 <?php
 
 p24_connect();
-// check if user logged in and valid user
 
 $area_id = $_POST['area_id'];
-$beachesRes = p24_getAllBeaches($area_id);
 $area_name = p24_getAreaName($area_id);
+if(empty($area_name)){ ?>
+<script> load_error();</script>
+<?php die();}
+$beachesRes = p24_getAllBeaches($area_id);
+
 ?>
 
 
 <html>
-
-<div id="page_top"></div>
-
 <table style="border-style: hidden"><tr>
 <td align="center" style=" border-style: hidden height: 20px; width:7%">100%</td>
 <?php 
@@ -50,7 +52,7 @@ foreach(array_reverse($colors) as $color){?>
 				<td style="vertical-align:middle; width: 33%"> <p><?=$beach['name']?></p></td>
 				<td style=";vertical-align:middle; width: 33%"> <p style="font-weight: bold; 
 					background-color:<?=p24_getColor(p24_getBeachPercent($beach_id))?>" ><?=p24_getBeachPercent($beach_id)?>%</p></td>
-				<td style="vertical-align:middle; width: 33%"> <button class="brightBlueButton"  onclick="get_beach(<?=$beach_id?>, <?=$area_id?>)">
+				<td style="vertical-align:middle; width: 33%"> <button class="brightBlueButton"  onclick="load_beach(<?=$beach_id?>, <?=$area_id?>, 0)">
 				<p style="font-weight: bold;">זה החוף שלי</p></button></td>
 			</tr>
 			<?php } ?>	
@@ -58,43 +60,5 @@ foreach(array_reverse($colors) as $color){?>
 	</table>
 
 </html>
-
-<script>
-<?php $ajax_url = admin_url( 'admin-ajax.php' ); ?>
-function load_area(area_id){
-	
-	jQuery.ajax({
-		type: "POST",
-		dataType: "html",
-		url: "<?php echo $ajax_url;?>",
-		data: {action: "p24_loadArea_ajax", area_id:area_id},
-		success: function(output){
-			jQuery('.entry-content').html(output);
-			window.onpopstate = function(event) {
-      			load_map();
-    		}
-    		window.scrollTo(0, document.getElementById('page_top').offsetTop);
-		}
-	});
-}
-
-
-function get_beach(beach_id, area_id){
-window.onpopstate = function(event) {
-      load_area(area_id);
-    }
-//console.log("get_beach- beach_id: "+beach_id);
-history.pushState({beach_id:beach_id}, "אזור:"+ beach_id, "?bid="+beach_id); 
-	jQuery.ajax({
-		type: "POST",
-		dataType: "html",
-		url: "<?php echo $ajax_url;?>",
-		data: {action: "p24_loadBeach_ajax", beach_id:beach_id},
-		success: function(output){
-			jQuery('.entry-content').html(output);
-			window.scrollTo(0, document.getElementById('page_top').offsetTop);
-		}
-	});
-}
 
 <?php p24_disconnect(); ?>

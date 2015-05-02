@@ -22,7 +22,7 @@ function accelerate_widgets_init() {
 		'after_widget'  	=> '</aside>',
 		'before_title'  	=> '<h3 class="widget-title"><span>',
 		'after_title'   	=> '</span></h3>'
-	) );	
+	) );
 
 	// Registering main left sidebar
 	register_sidebar( array(
@@ -44,7 +44,7 @@ function accelerate_widgets_init() {
 		'after_widget'  	=> '</aside>',
 		'before_title'  	=> '<h3 class="widget-title">',
 		'after_title'   	=> '</h3>'
-	) );	
+	) );
 
 	// Registering Business Page template top section sidebar
 	register_sidebar( array(
@@ -142,7 +142,7 @@ function accelerate_widgets_init() {
 		_e( 'Suitable for Home Top Sidebar, Home Bottom Left Sidebar and Side Sidbar.', 'accelerate' );
 	?>
 		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:', 'accelerate' ); ?></label> 
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:', 'accelerate' ); ?></label>
 			<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
 		</p>
 		<p><?php _e( 'Displays the title of the Page if title input is empty.', 'accelerate' ); ?></p>
@@ -155,17 +155,17 @@ function accelerate_widgets_init() {
 			<input class="checkbox" type="checkbox" <?php echo $disable_feature_image; ?> id="<?php echo $this->get_field_id('disable_feature_image'); ?>" name="<?php echo $this->get_field_name('disable_feature_image'); ?>" /> <label for="<?php echo $this->get_field_id('disable_feature_image'); ?>"><?php _e( 'Remove Featured image', 'accelerate' ); ?></label>
 		</p>
 
-	    <?php if( $image_position == 'above' ) { ?>  
-		<p> 
-		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="above" style="" checked /><?php _e( 'Show Image Before Title', 'accelerate' );?><br />  
-		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="below" style="" /><?php _e( 'Show Image After Title', 'accelerate' );?><br />              
-		</p>  
-		<?php } else { ?> 
-		<p>   
-		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="above" style="" /><?php _e( 'Show Image Before Title', 'accelerate' );?><br />  
-		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="below" style="" checked /><?php _e( 'Show Image After Title', 'accelerate' );?><br />              
-		</p>  
-		<?php } ?> 
+	    <?php if( $image_position == 'above' ) { ?>
+		<p>
+		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="above" style="" checked /><?php _e( 'Show Image Before Title', 'accelerate' );?><br />
+		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="below" style="" /><?php _e( 'Show Image After Title', 'accelerate' );?><br />
+		</p>
+		<?php } else { ?>
+		<p>
+		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="above" style="" /><?php _e( 'Show Image Before Title', 'accelerate' );?><br />
+		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="below" style="" checked /><?php _e( 'Show Image After Title', 'accelerate' );?><br />
+		</p>
+		<?php } ?>
 
 	<?php
 	}
@@ -193,7 +193,7 @@ function accelerate_widgets_init() {
  			$the_query = new WP_Query( 'page_id='.$page_id );
  			while( $the_query->have_posts() ):$the_query->the_post();
  				$page_name = get_the_title();
- 			
+
 	 		$output = $before_widget;
 	 		if( $image_position == "below" ) {
 	 			if( $title ): $output .= $before_title.'<a href="' . get_permalink() . '" title="'.esc_attr( $title ).'">'. esc_html( $title ).'</a>'.$after_title;
@@ -209,7 +209,7 @@ function accelerate_widgets_init() {
 	 			else: $output .= $before_title.'<a href="' . get_permalink() . '" title="'.esc_attr( $page_name ).'">'. esc_html( $page_name ) .'</a>'.$after_title;
 	 			endif;
 		 	}
-			$output .= '<p>'.get_the_excerpt().'...'.'</p>'; 
+			$output .= '<p>'.get_the_excerpt().'...'.'</p>';
 			$output .= '<a class="read-more" href="'. get_permalink() .'">'. esc_html( of_get_option( 'accelerate_read_more_text', __( 'Read more', 'accelerate' ) ) ) .'</a>';
 	 		$output .= $after_widget;
 	 		endwhile;
@@ -217,7 +217,7 @@ function accelerate_widgets_init() {
 	 		wp_reset_postdata();
 	 		echo $output;
  		}
- 		
+
  	}
 }
 
@@ -229,7 +229,7 @@ function accelerate_widgets_init() {
 class accelerate_call_to_action_widget extends WP_Widget {
  	function accelerate_call_to_action_widget() {
  		$widget_ops = array( 'classname' => 'widget_call_to_action', 'description' => __( 'Use this widget to show the call to action section.', 'accelerate' ) );
-		$control_ops = array( 'width' => 200, 'height' =>250 ); 
+		$control_ops = array( 'width' => 200, 'height' =>250 );
 		parent::WP_Widget( false, $name = __( 'TG: Call To Action Widget', 'accelerate' ), $widget_ops, $control_ops);
  	}
 
@@ -244,18 +244,18 @@ class accelerate_call_to_action_widget extends WP_Widget {
 		$button_text = esc_attr( $instance[ 'button_text' ] );
 		$button_url = esc_url( $instance[ 'button_url' ] );
 		?>
-	
-		
+
+
 		<?php _e( 'Call to Action Main Text','accelerate' ); ?>
 		<textarea class="widefat" rows="3" cols="20" id="<?php echo $this->get_field_id('text_main'); ?>" name="<?php echo $this->get_field_name('text_main'); ?>"><?php echo $text_main; ?></textarea>
 		<?php _e( 'Call to Action Additional Text','accelerate' ); ?>
 		<textarea class="widefat" rows="3" cols="20" id="<?php echo $this->get_field_id('text_additional'); ?>" name="<?php echo $this->get_field_name('text_additional'); ?>"><?php echo $text_additional; ?></textarea>
 		<p>
-			<label for="<?php echo $this->get_field_id('button_text'); ?>"><?php _e( 'Button Text:', 'accelerate' ); ?></label> 
+			<label for="<?php echo $this->get_field_id('button_text'); ?>"><?php _e( 'Button Text:', 'accelerate' ); ?></label>
 			<input id="<?php echo $this->get_field_id('button_text'); ?>" name="<?php echo $this->get_field_name('button_text'); ?>" type="text" value="<?php echo $button_text; ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id('button_url'); ?>"><?php _e( 'Button Redirect Link:', 'accelerate' ); ?></label> 
+			<label for="<?php echo $this->get_field_id('button_url'); ?>"><?php _e( 'Button Redirect Link:', 'accelerate' ); ?></label>
 			<input id="<?php echo $this->get_field_id('button_url'); ?>" name="<?php echo $this->get_field_name('button_url'); ?>" type="text" value="<?php echo $button_url; ?>" />
 		</p>
 		<?php
@@ -263,7 +263,7 @@ class accelerate_call_to_action_widget extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		
+
 		if ( current_user_can('unfiltered_html') )
 			$instance['text_main'] =  $new_instance['text_main'];
 		else
@@ -287,14 +287,14 @@ class accelerate_call_to_action_widget extends WP_Widget {
  		global $post;
  		$text_main = empty( $instance['text_main'] ) ? '' : $instance['text_main'];
  		$text_additional = empty( $instance['text_additional'] ) ? '' : $instance['text_additional'];
- 		$button_text = isset( $instance[ 'button_text' ] ) ? $instance[ 'button_text' ] : ''; 		
+ 		$button_text = isset( $instance[ 'button_text' ] ) ? $instance[ 'button_text' ] : '';
  		$button_url = isset( $instance[ 'button_url' ] ) ? $instance[ 'button_url' ] : '#';
 
 		echo $before_widget;
 		?>
 			<div class="call-to-action-content-wrapper clearfix">
 				<div class="call-to-action-content">
-					<?php 
+					<?php
 					if( !empty( $text_main ) ) {
 					?>
 					<h3><?php echo esc_html( $text_main ); ?></h3>
@@ -305,17 +305,17 @@ class accelerate_call_to_action_widget extends WP_Widget {
 					<p><?php echo esc_html( $text_additional ); ?></p>
 					<?php
 					}
-					?>						
+					?>
 				</div>
-				<?php 
+				<?php
 				if( !empty( $button_text ) ) {
-				?>					
+				?>
 					<a class="read-more" href="<?php echo esc_url( $button_url ); ?>" title="<?php echo esc_attr( $button_text ); ?>"><?php echo esc_html( $button_text ); ?></a>
 				<?php
 				}
 				?>
 			</div>
-		<?php 
+		<?php
 		echo $after_widget;
  	}
 }
@@ -328,7 +328,7 @@ class accelerate_call_to_action_widget extends WP_Widget {
  class accelerate_recent_work_widget extends WP_Widget {
  	function accelerate_recent_work_widget() {
  		$widget_ops = array( 'classname' => 'widget_recent_work', 'description' => __( 'Show your some pages as recent work. Best for Business Top or Bottom sidebar.', 'accelerate' ) );
-		$control_ops = array( 'width' => 200, 'height' =>250 ); 
+		$control_ops = array( 'width' => 200, 'height' =>250 );
 		parent::WP_Widget( false, $name = __( 'TG: Featured Widget', 'accelerate' ), $widget_ops, $control_ops);
  	}
 
@@ -348,9 +348,9 @@ class accelerate_call_to_action_widget extends WP_Widget {
  			$var = absint( $instance[ $var ] );
 		}
 		?>
-	
+
 		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:', 'accelerate' ); ?></label> 
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:', 'accelerate' ); ?></label>
 			<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_html($title); ?>" />
 		</p>
 		<?php _e( 'Description','accelerate' ); ?>
@@ -392,7 +392,7 @@ class accelerate_call_to_action_widget extends WP_Widget {
  		for( $i=0; $i<4; $i++ ) {
  			$var = 'page_id'.$i;
  			$page_id = isset( $instance[ $var ] ) ? $instance[ $var ] : '';
- 			
+
  			if( !empty( $page_id ) )
  				array_push( $page_array, $page_id );// Push the page id in the array
  		}
@@ -401,8 +401,8 @@ class accelerate_call_to_action_widget extends WP_Widget {
 			'post_type'					=>  array( 'page' ),
 			'post__in'		 			=> $page_array,
 			'orderby' 		 			=> 'post__in'
-		) ); 
-		echo $before_widget; 
+		) );
+		echo $before_widget;
 			if ( !empty( $title ) ) { echo $before_title . esc_html( $title ) . $after_title; }
 			if ( !empty( $text ) ) { echo '<p>'.esc_textarea( $text ).'</p>'; }
 			$i = 1;
@@ -410,10 +410,10 @@ class accelerate_call_to_action_widget extends WP_Widget {
 				$page_title = get_the_title();
 				if ( $i % 4 == 0 ) { $class = 'tg-one-fourth tg-one-fourth-last'.' tg-column-'.$i; }
  				elseif( $i % 3 == 0 ) { $class= 'tg-one-fourth tg-after-two-blocks-clearfix'.' tg-column-'.$i; }
- 				else { $class = 'tg-one-fourth'.' tg-column-'.$i; }	
+ 				else { $class = 'tg-one-fourth'.' tg-column-'.$i; }
 				?>
 				<div class="<?php echo $class; ?>">
-					<?php 
+					<?php
 					if ( has_post_thumbnail() ) {
 						$title_attribute = get_the_title( $post->ID );
 						echo'<div class="service-image"><a title="'.get_the_title().'" href="'.get_permalink().'">'.get_the_post_thumbnail( $post->ID, 'featured-recent-work', array( 'title' => esc_attr( $title_attribute ), 'alt' => esc_attr( $title_attribute ) ) ).'</a></div>';
@@ -423,14 +423,14 @@ class accelerate_call_to_action_widget extends WP_Widget {
 						<div class="title_box">
 							<?php echo '<h5>'.$page_title.'</h5>'; ?>
 						</div>
-					</a>					
+					</a>
 				</div>
-				<?php $i++; ?>					
+				<?php $i++; ?>
 			<?php endwhile;
 	 		// Reset Post Data
- 			wp_reset_query(); 
+ 			wp_reset_query();
  			?>
-		<?php 
+		<?php
 		echo $after_widget;
  	}
 }
@@ -443,7 +443,7 @@ class accelerate_call_to_action_widget extends WP_Widget {
 class accelerate_image_service_widget extends WP_Widget {
  	function accelerate_image_service_widget() {
  		$widget_ops = array( 'classname' => 'widget_image_service_block', 'description' => __( 'Display some pages as services. Best for Business Top or Bottom sidebar.', 'accelerate' ) );
-		$control_ops = array( 'width' => 200, 'height' =>250 ); 
+		$control_ops = array( 'width' => 200, 'height' =>250 );
 		parent::WP_Widget( false, $name = __( 'TG: Image Services', 'accelerate' ), $widget_ops, $control_ops);
  	}
 
@@ -452,21 +452,26 @@ class accelerate_image_service_widget extends WP_Widget {
  			$var = 'page_id'.$i;
  			$defaults[$var] = '';
  		}
+      $defaults['display_read_more'] = 0;
  		$instance = wp_parse_args( (array) $instance, $defaults );
  		for ( $i=0; $i<6; $i++ ) {
  			$var = 'page_id'.$i;
  			$var = absint( $instance[ $var ] );
 		}
-	?>
-		<?php for( $i=0; $i<6; $i++) { ?>
+      $display_read_more = $instance['display_read_more'] ? 'checked="checked"' : '';
+
+		for( $i=0; $i<6; $i++) { ?>
 			<p>
 				<label for="<?php echo $this->get_field_id( key($defaults) ); ?>"><?php _e( 'Page', 'accelerate' ); ?>:</label>
 				<?php wp_dropdown_pages( array( 'show_option_none' =>' ','name' => $this->get_field_name( key($defaults) ), 'selected' => $instance[key($defaults)] ) ); ?>
 			</p>
 		<?php
 		next( $defaults );// forwards the key of $defaults array
-		}
-	}
+		} ?>
+      <p>
+         <input class="checkbox" type="checkbox" <?php echo $display_read_more; ?> id="<?php echo $this->get_field_id( 'display_read_more' ); ?>" name="<?php echo $this->get_field_name( 'display_read_more' ); ?>" /> <label for="<?php echo $this->get_field_id( 'display_read_more' ); ?>"><?php _e( 'Display Read more', 'ample' ); ?></label>
+      </p>
+	<?php }
 
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
@@ -474,6 +479,7 @@ class accelerate_image_service_widget extends WP_Widget {
 			$var = 'page_id'.$i;
 			$instance[ $var] = absint( $new_instance[ $var ] );
 		}
+      $instance[ 'display_read_more' ] = isset( $new_instance[ 'display_read_more' ] ) ? 1 : 0;
 
 		return $instance;
 	}
@@ -487,34 +493,35 @@ class accelerate_image_service_widget extends WP_Widget {
  		for( $i=0; $i<6; $i++ ) {
  			$var = 'page_id'.$i;
  			$page_id = isset( $instance[ $var ] ) ? $instance[ $var ] : '';
- 			
+
  			if( !empty( $page_id ) )
  				array_push( $page_array, $page_id );// Push the page id in the array
  		}
+      $display_read_more = !empty( $instance[ 'display_read_more' ] ) ? 1 : 0;
 		$get_featured_pages = new WP_Query( array(
 			'posts_per_page' 			=> -1,
 			'post_type'					=>  array( 'page' ),
 			'post__in'		 			=> $page_array,
 			'orderby' 		 			=> 'post__in'
-		) ); 
+		) );
 		echo $before_widget; ?>
-			<?php 
+			<?php
 			$j = 1;
  			while( $get_featured_pages->have_posts() ):$get_featured_pages->the_post();
 				$page_title = get_the_title();
-				if( $j % 2 == 1 && $j > 1 ) {
+				if( $j % 3 == 0 ) {
 					$service_class = "tg-one-third tg-one-third-last";
 				}
 				else
 					if ( $j % 3 == 1 && $j > 1 ) {
 					$service_class = "tg-one-third tg-after-three-blocks-clearfix";
-				}	
+				}
 				else {
 					$service_class = "tg-one-third";
-				}	
+				}
 				?>
 				<div class="<?php echo $service_class; ?>">
-					<?php 
+					<?php
 					if ( has_post_thumbnail() ) {
 						?>
 						<a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php echo'<div class="service-image">'.get_the_post_thumbnail( $post->ID, 'featured-service' ).'</div>';
@@ -524,21 +531,26 @@ class accelerate_image_service_widget extends WP_Widget {
 					}
 					?>
 					<h2 class="entry-title"><a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php echo esc_html( $page_title ); ?></a></h2>
-					<?php the_excerpt(); ?>					
+					<?php the_excerpt(); ?>
+
+               <?php if( $display_read_more ) { ?>
+                  <a class="more-link" title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php echo '<span>'.__( 'Read more', 'accelerate' ).'</span>' ?></a>
+               <?php } ?>
+
 				</div>
-				<?php $j++; ?>					
+				<?php $j++; ?>
 			<?php endwhile;
 	 		// Reset Post Data
- 			wp_reset_postdata(); 
+ 			wp_reset_postdata();
  			?>
-		<?php 
+		<?php
 		echo $after_widget;
  	}
 }
 
 /**************************************************************************************/
 
-/** 
+/**
  * ThemeGrill Custom Tag Widget
  */
 class accelerate_custom_tag_widget extends WP_Widget {
@@ -552,7 +564,7 @@ class accelerate_custom_tag_widget extends WP_Widget {
 		extract( $args );
 		extract( $instance );
 		$title = empty( $instance[ 'title' ] ) ? 'Tags' : $instance[ 'title' ];
-		
+
 		echo $before_widget;
 
 		if ( $title ):
@@ -566,20 +578,20 @@ class accelerate_custom_tag_widget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags($new_instance['title']);
-		
+
 		return $instance;
-	}	
-	
+	}
+
 	function form($instance) {
 		$instance = wp_parse_args( ( array ) $instance, array( 'title'=>'Tags' ) );
 		$title = esc_attr( $instance[ 'title' ] );
 		?>
-		
+
 		<p>
-		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:', 'accelerate' ); ?></label> 
+		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:', 'accelerate' ); ?></label>
 		<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
 		</p>
-	<?php			
+	<?php
 	}
 }
 

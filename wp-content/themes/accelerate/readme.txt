@@ -50,6 +50,11 @@ and we will include it within the theme from next version update.
 /**********************************************************/
 
 == CHANGE LOG ==
+= Version 1.1.5 =
+* Slider arrow appearing even when only one slide present: issue fixed.
+* Option added for displaying Read more in TG: Image Services widget.
+* Fifth block order issue in TG: Image Services widget is fixed.
+
 = Version 1.1.4 =
 * Fontawesome icons updated to 4.3.0
 * Custom CSS option sanitized using wp_filter_nohtml_kses().

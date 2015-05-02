@@ -8,10 +8,45 @@
  Text Domain:  accelerate
 */
 
-.brightBlueButton{
-	margin: 3px ;
+@font-face {
+font-family: Alef;
+src: url('http://project24.co.il/wp-content/themes/accelerate-child/utils/Alef-Regular.ttf');
+}
+
+.brightBlueButton {
 	padding: 0px 15px;
-	background-color:#1FB3ED;
+  	margin: 3px 0px 5px 0px ;
+  color: #f1f1f1;
+  outline: none;
+  background: #33bbff;
+  background: -moz-linear-gradient(#1ab2ff, #4dc3ff), #33bbff;
+  background: -webkit-linear-gradient(#1ab2ff, #4dc3ff), #33bbff;
+  background: linear-gradient(#1ab2ff, #4dc3ff), #33bbff;
+
+  -moz-box-shadow: inset 0 -1px 1px #66ccff, 0 4px 0 #0088cc, 0 10px 15px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: inset 0 -1px 1px #66ccff, 0 4px 0 #0088cc, 0 10px 15px rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 -1px 1px #66ccff, 0 4px 0 #0088cc, 0 10px 15px rgba(0, 0, 0, 0.35);
+  -moz-transition: all 100ms ease-in-out;
+  -o-transition: all 100ms ease-in-out;
+  -webkit-transition: all 100ms ease-in-out;
+  transition: all 100ms ease-in-out;
+
+}
+.brightBlueButton:hover {
+  text-shadow: 0 0 5px rgba(241, 241, 241, 0.65), -1px -1px 0 rgba(26, 26, 26, 0.5);
+  background: #00ccff;
+  background: -moz-linear-gradient(#5cc9ff, #00ccff), #00ccff;
+  background: -webkit-linear-gradient(#5cc9ff, #00ccff), #00ccff;
+  background: linear-gradient(#5cc9ff, #00ccff), #00ccff;
+  -moz-box-shadow: inset 0 -1px 1px #70cfff, 0 4px 0 #0096e0, 0 10px 15px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: inset 0 -1px 1px #70cfff, 0 4px 0 #0096e0, 0 10px 15px rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 -1px 1px #70cfff, 0 4px 0 #0096e0, 0 10px 15px rgba(0, 0, 0, 0.35);
+}
+.brightBlueButton:active, .button:focus {
+  top: 4px;
+  -moz-box-shadow: inset 0 -1px 1px #70cfff, 0 4px 0 #0096e0, 0 6px 8px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: inset 0 -1px 1px #70cfff, 0 4px 0 #0096e0, 0 6px 8px rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 -1px 1px #70cfff, 0 4px 0 #0096e0, 0 6px 8px rgba(0, 0, 0, 0.35);
 }
 
 #approveButton{
@@ -32,8 +67,8 @@
 	background-color:#1FB3ED;
 }
 
-a {
-font-family: alef;
+a , p , h1, h2 , h3 , h4 , h5 ,h6 {
+font-family: 'Alef';
 }
 
 #submitHours{
@@ -57,13 +92,51 @@ font-family: alef;
 }
 
 td {
-  padding: 0px;
-  margin: 4px 0px;
+	color: black;
+	text-align:center;
+	vertical-align:middle;
+  	padding: 0px;
+  	margin: 4px 0px;
 }
 
 p {
   padding: 0px;
   margin: 4px 0px;
+}
+
+
+
+.main-small-navigation ul li{
+font-weight: bold;
+}
+
+/* Background */
+#header-text-nav-container{
+	background-color: #212180;
+}
+
+/* Navigation background */
+.main-navigation ul {
+text-align: right;
+}
+.menunav-menu{
+	background-color: #FFFFFF;
+}
+.main-navigation ul li {
+display: inline-block;
+font-weight: bold;
+float: none;
+}
+
+/* Navigation buttons */
+.main-navigation ul li.menu-item :hover , .main-navigation ul li.current-menu-item a , .main-small-navigation ul li.menu-item :hover , .main-small-navigation ul li.current-menu-item a{
+	background-color: #61D6FA;
+	font-weight: bold;
+}
+
+/* Navigation buttons on phone */
+.site-header.menu-toggle :before{
+color: #0099ff;
 }
 
 

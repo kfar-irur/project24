@@ -7,6 +7,7 @@
  * @since Accelerate 1.0
  */
 ?>
+
 <?php get_header(); ?>
 
 	<?php do_action( 'accelerate_before_body_content' ); ?>

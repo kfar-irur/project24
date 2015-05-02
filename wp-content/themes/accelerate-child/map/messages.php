@@ -1,9 +1,17 @@
 <?php
 
 p24_connect();
-// check if user logged in and valid user
+
+function p24_getMessages(){
+    $q = "SELECT * FROM m_messages ORDER BY id" ;
+
+    $result = mysql_query($q) or die('Query failed: ' . mysql_error());
+    
+	return $result;
+}
 
 $messages = p24_getMessages();
+
 ?>
 
 

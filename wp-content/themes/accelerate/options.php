@@ -71,7 +71,7 @@ function optionsframework_options() {
 
 	// Header image position option
 	$options[] = array(
-		'name' 		=> __( 'Heder Image Position', 'accelerate' ),
+		'name' 		=> __( 'Header Image Position', 'accelerate' ),
 		'desc' 		=> __( 'Choose top header image display position.', 'accelerate' ),
 		'id' 			=> 'accelerate_header_image_position',
 		'std' 		=> 'position_two',
